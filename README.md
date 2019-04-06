@@ -20,3 +20,17 @@ Execute python3 u4pak.py pack skinpack.pak Nimbus
 1) Go to "Ace Combat 7 Skies Unknown\Game\Content\Paks\"
 2) Create a folder named "~mods" without quotes
 3) Copy skinpack.pak to that folder
+
+# This Mod include skins for the next planes:
+F-104C  
+F-15C  
+F-16C  
+F-35C  
+FA-18F  
+MiG-31B  
+Rafale  
+skinpack  
+Su-30SM  
+Typhoon  
+X-02S  
+YF-23  
