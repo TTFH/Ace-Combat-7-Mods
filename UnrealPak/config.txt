@@ -1,1 +1,6 @@
-plwp_admm_x0.* ../../../Nimbus/Content/Blueprint/Weapons/Player/Base/plwp_admm_x0.*
+plwp_admm_x0.uasset ../../../Nimbus/Content/Blueprint/Weapons/Player/Base/plwp_admm_x0.uasset
+plwp_admm_x0.uexp ../../../Nimbus/Content/Blueprint/Weapons/Player/Base/plwp_admm_x0.uexp
+PlayerPlaneDataTable.uasset ../../../Nimbus/Content/Blueprint/Information/PlayerPlaneDataTable.uasset
+PlayerPlaneDataTable.uexp ../../../Nimbus/Content/Blueprint/Information/PlayerPlaneDataTable.uexp
+PlayerWeaponDataTable.uasset ../../../Nimbus/Content/Blueprint/Information/PlayerWeaponDataTable.uasset
+PlayerWeaponDataTable.uexp ../../../Nimbus/Content/Blueprint/Information/PlayerWeaponDataTable.uexp

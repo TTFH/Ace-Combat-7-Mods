@@ -1,3 +1,4 @@
-UnrealPak/plwp_admm_x0.uasset
-UnrealPak/plwp_admm_x0.uexp
-UnrealPak/admm_P.pak
+UnrealPak/*.uasset
+UnrealPak/*.uexp
+UnrealPak/*.pak
+PAK00/*
