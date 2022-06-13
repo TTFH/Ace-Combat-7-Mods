@@ -24,30 +24,36 @@ It's ~~almost~~ impossible to decrypt the files, since the algorithm is not publ
 - Or someone ~~illegally~~ shared the files with you.  
   
 ### How to unzip files on Google Drive  
-Let's say you have the files in Google Drive but you can't download them because your internet is really slow and the files are bigger than 3GiB.  
-You can ask a friend to download the files for you and send them back in a pendrive or using IPoAC, you know, putting the files on a SD card and send it back to you on a homing pigeon, wait... that doesn't sound to realistic for ya? here is another way:  
+Let's say you have the files in Google Drive but you can't download them because your internet is really slow and the files are bigger than 60.5 GiB.  
+You can ask a friend to download the files for you and send them back in a USB Flash Drive or using IPoAC, you know, putting the files on a SD card and send it back to you on a homing pigeon, wait... that doesn't sound to realistic for ya? here is another way:  
   
 Let's say you have a DLC.7z file containing all the DLC files (\*\_0\_P.pak) but you only want to download only one of them.  
 1- Add a shortcut to your Drive (right click on the file and select that option)  
 2- Add Google Colaboratory to your Drive (open the Google Workspace Marketplace and install Colaboratory)  
 3- Create a ipynb script file (right click -> More -> Google Colaboratory)  
 4- Mount your drive to the virtual machine, just type the next code and press Enter:  
-```py  
-from google.colab import drive  
-drive.mount('/gdrive')  
-```  
+```py
+from google.colab import drive
+drive.mount('/gdrive')
+```
 5- Change the directory to your mounted Drive  
-`cd /gdrive/AC7_Decrypted`  
-6- Extract the files, after extracting delete the files you don't need to reduce the used space on Drive  
+`cd /gdrive/MyDrive/AC7_Decrypted`  
+6- Extract the files, after extracting you can delete the files you don't need to reduce the used space on Drive  
 `!7za x DLC.7z`  
+You can also extract a single file:
+`!7za x Base.7z ~pakchunk0-ps4.pak`  
 7- Compress the file you want to reduce the size  
 `!7za a -t7z PAK00.7z pakchunk0-ps4_0_p.pak`  
-8- Donwload the compressed file  
+8- Download the compressed file  
   
-Example file sizes:  
+**Example file sizes:**  
 DLC.7z: 3.34 GiB  
 pakchunk0-ps4_0_p.pak: 3.41 GiB  
 PAK00.7z: 895.3 MiB  
+  
+Base.7z: 11.48 GiB  
+pakchunk0-ps4.pak: 13.63 GiB  
+PAK0.7z: ? GiB  
   
 Extract the 7z file with 7zip and then extract the pak file like above, this time you may not need to enter the AES key.  
   
@@ -58,7 +64,7 @@ Copy those files to the `UnrealPak\` folder
 Open UAssetGUI and select version 4.18 on the top right corner  
 Open plwp_admm_x0.uasset from the `UnrealPak\` folder  
 Click on View -> Expand All  
-Inside `Export Data / Export \* (Default__\*) / 1 (\*)` it's posible to edit values like Damage, LoadTime, LockonRange, etc.  
+Inside `Export Data / Export \* (Default__\*) / 1 (\*)` it's possible to edit values like Damage, LoadTime, LockonRange, etc.  
 Save the file after editing it  
 Backup files (.bak) are created, you can remove them  
   
