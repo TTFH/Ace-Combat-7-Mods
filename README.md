@@ -53,7 +53,7 @@ PAK00.7z: 895.3 MiB
   
 Base.7z: 11.48 GiB  
 pakchunk0-ps4.pak: 13.63 GiB  
-PAK0.7z: ? GiB  
+PAK0.7z: 6.37 GiB  
   
 Extract the 7z file with 7zip and then extract the pak file like above, this time you may not need to enter the AES key.  
   
