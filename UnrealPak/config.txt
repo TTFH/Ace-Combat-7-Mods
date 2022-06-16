@@ -4,3 +4,8 @@ PlayerPlaneDataTable.uasset ../../../Nimbus/Content/Blueprint/Information/Player
 PlayerPlaneDataTable.uexp ../../../Nimbus/Content/Blueprint/Information/PlayerPlaneDataTable.uexp
 PlayerWeaponDataTable.uasset ../../../Nimbus/Content/Blueprint/Information/PlayerWeaponDataTable.uasset
 PlayerWeaponDataTable.uexp ../../../Nimbus/Content/Blueprint/Information/PlayerWeaponDataTable.uexp
+
+AcePlayerPawn_pkfa.uasset ../../../Nimbus/Content/Blueprint/Player/Pawn/AcePlayerPawn_pkfa.uasset
+AcePlayerPawn_pkfa.uexp ../../../Nimbus/Content/Blueprint/Player/Pawn/AcePlayerPawn_pkfa.uexp
+pkfa_SWP3_SM.uasset ../../../Nimbus/Content/Vehicles/Aircraft/pkfa/pkfa_SWP3_SM.uasset
+pkfa_SWP3_SM.uexp ../../../Nimbus/Content/Vehicles/Aircraft/pkfa/pkfa_SWP3_SM.uexp

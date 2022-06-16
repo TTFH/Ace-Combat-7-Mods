@@ -1,9 +1,9 @@
-# Unreal Engine 4 - Unreal Tournament 4 (*WindowsNoEditor.pak) (script 0.4.22)
+# Unreal Engine 4 - Unreal Tournament 4 (*WindowsNoEditor.pak) (script 0.4.25)
 # script for QuickBMS http://quickbms.aluigi.org
 
 math NO_TAIL_INFO = 0   # set it to 1 for archives with corrupt/missing tail information
 
-quickbmsver "0.8.4"
+quickbmsver "0.10"
 
 math TOC_FILE = 0
 
@@ -40,8 +40,31 @@ if NO_TAIL_INFO != 0
     get OFFSET asize
     math ALTERNATIVE_MODE = 1
 else
-    goto -0x2c
-    get MAGIC long  #idstring "\xe1\x12\x6f\x5a" # 0x5a6f12e1
+    # update from ssh
+    callfunction GET_MAGIC 1 -0xac # for version 8
+	
+	if MAGIC != 0x5a6f12e1
+        callfunction GET_MAGIC 1 -0x2c  # previous versions 3-6
+        if MAGIC != 0x5a6f12e1
+            goto 0 0 SEEK_END
+            get TMP asize
+            math TMP - 0x100    # just a limit
+            findloc MAGIC_OFF long 0x5a6f12e1 0 "" TMP
+            if MAGIC_OFF == ""
+                math MAGIC = 0
+            else
+                callfunction GET_MAGIC 1 MAGIC_OFF
+            endif
+        endif
+	else
+		math WORKAROUND = 4
+	endif
+    
+    if MAGIC == 0
+        callfunction GET_MAGIC 1 -0xcc  # Fortnite iOS
+        math WORKAROUND = 3
+    endif
+
     endian guess MAGIC      # 0x5a6f12e1:le, 0xe1126f5a:be
     if MAGIC == 0x1233a     # HIT game
         math WORKAROUND = 1
@@ -66,7 +89,8 @@ else
     endif
 
     if VERSION >= 3
-        goto -0x2d
+        goto MAGIC_OFF
+        goto -1 0 SEEK_CUR
         get ENCRYPTED byte
         if ENCRYPTED != 0
             callfunction SET_AES_KEY 1
@@ -79,6 +103,8 @@ else
     goto OFFSET # don't use TOC_FILE
     callfunction GET_NAME 1
 endif
+
+# mobile version 10 is not supported
 
 if ALTERNATIVE_MODE == 0
     get FILES long TOC_FILE
@@ -103,6 +129,10 @@ for i = 0 < FILES
     if WORKAROUND == 2
         get ZSIZE long TOC_FILE
         get SIZE long TOC_FILE
+        get ZIP byte TOC_FILE
+	elif WORKAROUND == 4
+		get ZSIZE longlong TOC_FILE
+        get SIZE longlong TOC_FILE
         get ZIP byte TOC_FILE
     else
         get ZSIZE longlong TOC_FILE
@@ -155,7 +185,7 @@ for i = 0 < FILES
         comtype gzip
     elif ZIP & 4
         comtype snappy
-        if VERSION >= 6
+        if VERSION >= 5 # was 6
             comtype oodle
         endif
         if WORKAROUND == 2
@@ -237,31 +267,39 @@ next i
 
 startfunction SET_AES_KEY_ASK
     math AES_KEY_IS_SET = 1
-    print "The archive is encrypted, select the number of the key to use or type yours:"
-    for z = 0
-        getarray KEY 10 z
-        if KEY == ""
-            break
-        endif
-        print "%z%: %KEY%"
-    next z
-        print "%z%: press RETURN for no encryption (Lineage 2 Revolution)"
-    set KEY unknown "???"
-    strlen TMP KEY
-    if KEY == ""
-        math AES_KEY_IS_SET = -1
-        set AES_KEY string "no key, encryption disabled"
-    elif TMP <= 2
-        getarray AES_KEY 10 KEY
+    strlen TMP AES_KEY 1
+    if TMP > 0
         if AES_KEY strncmp "0x"
             string AES_KEY << 2
             string AES_KEY h AES_KEY
         endif
-    elif KEY strncmp "0x"
-        string KEY << 2
-        string AES_KEY h KEY
     else
-        set AES_KEY binary KEY
+        print "The archive is encrypted, select the number of the key to use or type yours:"
+        for z = 0
+            getarray KEY 10 z
+            if KEY == ""
+                break
+            endif
+            print "%z%: %KEY%"
+        next z
+            print "%z%: press RETURN for no encryption (Lineage 2 Revolution)"
+        set KEY unknown "???"
+        strlen TMP KEY
+        if KEY == ""
+            math AES_KEY_IS_SET = -1
+            set AES_KEY string "no key, encryption disabled"
+        elif TMP <= 2
+            getarray AES_KEY 10 KEY
+            if AES_KEY strncmp "0x"
+                string AES_KEY << 2
+                string AES_KEY h AES_KEY
+            endif
+        elif KEY strncmp "0x"
+            string KEY << 2
+            string AES_KEY h KEY
+        else
+            set AES_KEY binary KEY
+        endif
     endif
     print "KEY: %AES_KEY%"
 endfunction
@@ -293,4 +331,15 @@ startfunction GET_NAME
             set NAME unicode NAME
         endif
     endif
+endfunction
+
+startfunction GET_MAGIC
+    if GET_MAGIC_ARG1 < 0
+        get MAGIC_OFF asize
+        math MAGIC_OFF + GET_MAGIC_ARG1
+    else
+        math MAGIC_OFF = GET_MAGIC_ARG1
+    endif
+    goto MAGIC_OFF
+    get MAGIC long
 endfunction

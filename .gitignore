@@ -1,7 +1,8 @@
 PAK0/*
 PAK00/*
 UnrealPak/*.bak
-#UnrealPak/*.pak
+UnrealPak/*.pak
 UnrealPak/*.uasset
 UnrealPak/*.uexp
 UnrealPak/*.zip
+notes.txt
