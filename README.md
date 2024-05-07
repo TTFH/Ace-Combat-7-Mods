@@ -1,5 +1,7 @@
 # Ace Combat 7 Mods  
   
+# [DEPRECATED] There have been new releases of tools included in this repo that don't requiere decrypted files, I may or may not update it in the future.  
+
 ## How to extract .PAK files  
 Open the folder `Ace Combat 7 Skies Unknown\Game\Content\Paks\`  
 Inside you'll find 12 files with names matching the next regex\*: `pakchunk\d-WindowsNoEditor(_0_P)?.pak`  
